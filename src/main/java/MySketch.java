@@ -45,6 +45,7 @@ public class MySketch extends PApplet {
 		background(64);
 		ellipse(mouseX, mouseY, 20, 20);
 
+
 		float circleSize = circler;
 		for (int x = 0; x < width; x += circleSize) {
 			for (int y = -47; y < height; y += circleSize) {
