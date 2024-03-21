@@ -27,6 +27,10 @@ public class MySketch extends PApplet {
 
 	public void settings() {
 		size(500, 500);
+		surface.setResizable(true);
+		background(100, 180, 180);
+		noStroke();
+		frameRate(500);
 	}
 
 	public void frameResized(int w, int h) {
