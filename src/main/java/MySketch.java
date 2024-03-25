@@ -46,15 +46,19 @@ public class MySketch extends PApplet {
 			ellipse(mouseX, mouseY, 20, 20); //kreis um mauszeiger
 			background(100, 180, 180); // aufruf von background() cleart alles
 		}
-		int c = color(100, random(180, 255), random(180, 255), random(15,150));
-		// color ist kein objekt? Lösung => Haha es ist int
-		fill(c);
-		ellipse(random(width), random(height), random(width / 40, width / 20) , random(width / 40, width / 20) );
 
-		// var img = get();
-		// background(100, 180, 180);
-		// tint(255, 7);
-		// image(img, 0, 0);
+		for (int i = 0; i <= 25; i++) {
+			int c = color(100, random(180, 255), random(180, 255), random(15,150));
+			// color ist kein objekt? Lösung => Haha es ist int
+			fill(c);
+			ellipse(random(width), random(height), random(width / 40, width / 20) , random(width / 40, width / 20) );
+
+		}
+
+		PImage img = get();
+		background(100, 180, 180);
+		tint(255, 220);
+		image(img, 0, 0);
 
 
 	}
