@@ -26,6 +26,12 @@ public class MySketch extends PApplet {
 		background(0);
 		noStroke();   //kreis soll keinen rand haben
 		frameRate(1);
+		for (int x = 0; x <= 2; x++) {
+			colors[x] = getrandomcolor(); // ersten 3 sollen random farbe sein
+		}
+		for (int x = 3; x <= 5; x++) {
+			colors[x] = color(0); // schwarze farbe
+		}
 
 		// rect(c1,c1, width / pixelsize, width / pixelsize);
 
