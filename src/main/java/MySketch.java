@@ -5,13 +5,13 @@ import controlP5.*;
 
 
 public class MySketch extends PApplet {
-
+	int[] colors = new int[6];
 	int pixelsize = 7;
 	ControlP5 cp5;
 	public void setup() {
 		this.getSurface().setResizable(true);
 		cp5 = new ControlP5(this);
-		cp5.addSlider("pixelsize")
+		cp5.addSlider("circler")
 				.setPosition(10, 10)
 				.setRange(7, 10)
 				.setValue(5)
@@ -23,15 +23,11 @@ public class MySketch extends PApplet {
 				.setSize(100, 20);
 
 
-
-		ellipseMode(CORNER);
+		background(0);
 		noStroke();   //kreis soll keinen rand haben
-		background(64);
-		// brauche farbe
-		int c1 = color(100, random(180, 255), random(180, 255), random(15,150));
-		int c2 = color(100, random(180,255), random(180,255), random(15,150));
+		frameRate(1);
 
-
+		// rect(c1,c1, width / pixelsize, width / pixelsize);
 
 	}
 
@@ -40,17 +36,22 @@ public class MySketch extends PApplet {
 	}
 
 	public void frameResized(int w, int h) {
-
 	}
 
 	public void draw(){
-
 		ellipse(mouseX, mouseY, 20, 20);
 		// eigentliches draw in setup für nur einmal
-
 	}
 
 	public void frameUpdate() {
+	}
 
+	public int getrandomcolor() {
+		int c = color(random(50,260), random(50,260), random(50,260));
+		return c;
+	}
+
+	public int chooserandomcolor(int[] colors_) {
+		return colors_[floor(random(colors_.length))];
 	}
 }
