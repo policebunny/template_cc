@@ -12,8 +12,8 @@ Für jede Aufgabe gibt es einen neuen Branch
 
 [Space Invader](https://github.com/policebunny/template_cc/tree/cc_space-invader)
 
-[Space Invaders](https://github.com/policebunny/cc_space-invaderSSS)
+[Space Invaders](https://github.com/policebunny/template_cc/tree/cc_space-invaderSSS)
 
-[Quarter Circles](https://github.com/policebunny/cc_quarter-circles)
+[Quarter Circles](https://github.com/policebunny/template_cc/tree/cc_quarter-circles)
 
 ...
