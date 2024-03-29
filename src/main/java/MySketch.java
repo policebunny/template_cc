@@ -28,6 +28,9 @@ public class MySketch extends PApplet {
 		noStroke();   //kreis soll keinen rand haben
 		background(0);
 
+		int[] colors = new int [7];
+		fillRed(colors);
+
 
 		// saveFrame("pixeltest.jpg");
 
@@ -42,23 +45,27 @@ public class MySketch extends PApplet {
 	}
 
 	public void draw(){
-		background(64);
 		ellipse(mouseX, mouseY, 20, 20);
 
-
-		float circleSize = circler;
-		for (int x = 0; x < width; x += circleSize) {
-			for (int y = -47; y < height; y += circleSize) {
-				fill(img.get(x, max(y,0)));
-				ellipse(x, y, circleSize, circleSize); //circle(x,y,circleSize) ist vom import
-				//benutze ellipse stattdessen, aber input 4 variablen ez circlesizecirclesize
-			}
-			circleSize *= 0.964;
-			circleSize = max(circleSize, 1);
-		}
 	}
 
 	public void frameUpdate() {
 
 	}
+
+	public int redcolor(int howmuch) {
+		return color(340, 80, howmuch);
+	}
+
+	public int[] fillRed(int[] colors_) {
+		int white = color(255);
+		stroke(white);
+		colorMode(HSB, 360, 100, 100);
+		colors_[0] = redcolor(95); colors_[1] = redcolor(80);
+		colors_[2] = redcolor(50); colors_[3] = redcolor(95);
+		colors_[4] = redcolor(80); colors_[5] = redcolor(50);
+		colors_[6] = white;
+		return colors_;
+	}
+
 }
