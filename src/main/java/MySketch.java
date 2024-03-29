@@ -5,12 +5,15 @@ import controlP5.*;
 
 
 public class MySketch extends PApplet {
-	int[] colors = new int[6];
+
 	int pixelsize = 7;
 	ControlP5 cp5;
 	PImage invader;
+	int bordersize = 7;
 	int center = pixelsize / 2;
-	int invadersize = width / pixelsize;
+	int newsize = 5;
+	int invadersize = pixelsize * newsize;
+	int cellsize = invadersize + 2 * bordersize;
 	public void setup() {
 		this.getSurface().setResizable(true);
 		cp5 = new ControlP5(this);
@@ -25,20 +28,16 @@ public class MySketch extends PApplet {
 				.setValue(5)
 				.setSize(100, 20);
 
-
 		background(0);
-		noStroke();   //kreis soll keinen rand haben
-		frameRate(1);
+		// noLoop();
+		frameRate(5);
+		redraw();
 
-		FillColorArray(colors); // for schleifen in methode gepackt
-
-		// now columm and rows
-
-		makeInvader(colors); // for schleifen in methode gepackt
-
-		invader = get();
-		background(0);
-		image(invader, 0, 0);
+		// FillColorArray(colors); // for schleifen in methode gepackt
+		// makeInvader(colors); // for schleifen in methode gepackt
+		// invader = get();
+		// background(0);
+		// image(invader, 0, 0);
 
 		// rect(c1,c1, width / pixelsize, width / pixelsize);
 
@@ -46,18 +45,31 @@ public class MySketch extends PApplet {
 
 	public void settings() {
 		size(500, 500);
+		noSmooth();
 	}
 
 	public void frameResized(int w, int h) {
 	}
 
 	public void draw(){
-		image(invader, 0, 0);
-		// eigentliches draw in setup für nur einmal
-		// hier der fertige invader weiterhin anzeigen
+		// image(invader, 0, 0);
+
+		if(mousePressed) {
+
+
+			background(0);
+			for (int x = bordersize; x < width; x = x + cellsize) {
+				for (int y = bordersize; y < height; y = y + cellsize) {
+					PImage spaceInvader = makeInvader();
+					image(spaceInvader, x, y, invadersize, invadersize);
+				}
+			}
+		}
+
 	}
 
 	public void frameUpdate() {
+
 	}
 
 	public int getrandomcolor() {
@@ -73,34 +85,47 @@ public class MySketch extends PApplet {
 
 	public int[] FillColorArray(int[] colors_) {
 		for (int x = 0; x <= 2; x++) {
-			colors[x] = getrandomcolor(); // ersten 3 sollen random farbe sein
+			colors_[x] = getrandomcolor(); // ersten 3 sollen random farbe sein
 		}
 		for (int x = 3; x <= 5; x++) {
-			colors[x] = color(0); // schwarze farbe
+			colors_[x] = color(0, 0, 0, 0); // statt schwarz nun transparent
 		}
 		return colors_;
 	}
 
-	public void makeInvader(int[] colors) {
+	public PImage makeInvader() {
+
+		PImage imgPixelVader = createImage(pixelsize, pixelsize, ARGB);
+		int[] colors = new int[6];
+		FillColorArray(colors);
+
 		// brauche array hier zum ausfüllen
 		for (int row = 0; row < pixelsize; row++) {
-			for (int columm = 0; columm < pixelsize; columm++) {
-				fill(chooserandomcolor(colors));
-				// columm
-
-				rect(invadersize * columm, invadersize * row, invadersize, invadersize);
+			for (int columm = 0; columm < center; columm++) {
+				// fill(chooserandomcolor(colors));
+				final int cc = chooserandomcolor(colors);
+				// rect(invadersize * columm, invadersize * row, invadersize, invadersize);
 				// invaderPixels - 1 - column, row
-				rect(invadersize * (pixelsize - 1 - columm), invadersize * row, invadersize, invadersize);
+				imgPixelVader.set(columm, row, cc);
 
+				// rect(invadersize * (pixelsize - 1 - columm), invadersize * row, invadersize, invadersize);
+				imgPixelVader.set(pixelsize - 1 - columm, row, cc);
+
+				/*
+				imgInvader.set(column, row, c);
+      imgInvader.set(invaderPixels - 1 - column, row, c);
+
+				 */
 			}
 			// row..... symmetricColumnCount, row
 			fill(chooserandomcolor(colors));
 			if (0 != pixelsize % 2) {
-				rect(invadersize * center, invadersize * row, invadersize, invadersize);
+				// rect(invadersize * center, invadersize * row, invadersize, invadersize);
+				imgPixelVader.set(center, row, chooserandomcolor(colors));
 			}
 
 		}
-
+	return imgPixelVader;
 	}
 
 }
