@@ -16,4 +16,6 @@ Für jede Aufgabe gibt es einen neuen Branch
 
 [Quarter Circles](https://github.com/policebunny/template_cc/tree/cc_quarter-circles)
 
+[Moving Circles](https://github.com/policebunny/template_cc/tree/cc_moving-circles)
+
 ...
