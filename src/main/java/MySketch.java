@@ -38,8 +38,6 @@ public class MySketch extends PApplet {
 
 		fillRed(colors); // filling the array so we can use it
 
-
-
 		for (int x = 0; x < width; x += quadrantSize) {
 			for (int y = 0; y < height; y += quadrantSize) {
 				fill(chooseRandomColor(colors)); // provide a random color out of the array
