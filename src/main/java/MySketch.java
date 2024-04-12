@@ -15,7 +15,7 @@ public class MySketch extends PApplet {
 		cp5 = new ControlP5(this);
 		cp5.addSlider("circler")
 				.setPosition(10, 10)
-				.setRange(8, 32)
+				.setRange(8, 64)
 				.setValue(5)
 				.setSize(100, 20);
 		cp5.addSlider("decay")
