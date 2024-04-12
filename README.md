@@ -18,4 +18,6 @@ Für jede Aufgabe gibt es einen neuen Branch
 
 [Moving Circles](https://github.com/policebunny/template_cc/tree/cc_moving-circles)
 
+[Translation and Rotation](https://github.com/policebunny/template_cc/tree/cc_translation-and-rotation)
+
 ...
