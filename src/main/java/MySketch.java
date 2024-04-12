@@ -5,15 +5,17 @@ import controlP5.*;
 
 
 public class MySketch extends PApplet {
-	public PImage img = loadImage("https://i.redd.it/tbw9xtpzbcf61.jpg");
-	float circler = 10;
+	int circler = 8;
+	int[] colors = new int [7];
+	int quadrantSize = width / circler;
+	PImage img;
 	ControlP5 cp5;
 	public void setup() {
 		this.getSurface().setResizable(true);
 		cp5 = new ControlP5(this);
 		cp5.addSlider("circler")
 				.setPosition(10, 10)
-				.setRange(1, 100)
+				.setRange(8, 32)
 				.setValue(5)
 				.setSize(100, 20);
 		cp5.addSlider("decay")
@@ -23,21 +25,35 @@ public class MySketch extends PApplet {
 				.setSize(100, 20);
 
 
-		img.resize(width, height);   //public ez
+		// set up
 		ellipseMode(CORNER);
-		noStroke();   //kreis soll keinen rand haben
-		background(0);
+		hint(ENABLE_STROKE_PURE);
 
-		int[] colors = new int [7];
-		fillRed(colors);
+		background(255); // white background
+		int white = color(255);
+		stroke(white);
+		colorMode(HSB, 360, 100, 100);
 
 
+
+		fillRed(colors); // filling the array so we can use it
+
+
+
+		for (int x = 0; x < width; x += quadrantSize) {
+			for (int y = 0; y < height; y += quadrantSize) {
+				fill(chooseRandomColor(colors)); // provide a random color out of the array
+				randomQuarterCircle(x, y, quadrantSize);
+			}
+		}
+		img = get();
 		// saveFrame("pixeltest.jpg");
 
 	}
 
 	public void settings() {
 		size(500, 500);
+		smooth(4);
 	}
 
 	public void frameResized(int w, int h) {
@@ -45,11 +61,42 @@ public class MySketch extends PApplet {
 	}
 
 	public void draw(){
-		ellipse(mouseX, mouseY, 20, 20);
+		// ellipse(mouseX, mouseY, 20, 20);
+		if (circler == 8) {
+			image(img, 0, 0);
+		} else {
+			int NewQuadrantSize = width / circler;
+			for (int x = 0; x < width; x += NewQuadrantSize) {
+				for (int y = 0; y < height; y += NewQuadrantSize) {
+					fill(chooseRandomColor(colors)); // provide a random color out of the array
+					randomQuarterCircle(x, y, NewQuadrantSize);
+				}
+			}
+		}
+
 
 	}
 
-	public void frameUpdate() {
+	public int chooseRandomColor(int[] colors_) {
+		return colors_[floor(random(colors_.length))];
+	}
+
+	public void randomQuarterCircle(int x, int y, int quadrantSize) {
+		int quadrant = (int)random(4);
+		float start = quadrant * HALF_PI;
+		float stop = start + HALF_PI;
+		switch(quadrant) {
+			case 0:
+				x = x - quadrantSize; y = y - quadrantSize;
+				break;
+			case 1:
+				y = y - quadrantSize;
+				break;
+			case 3:
+				x = x - quadrantSize;
+				break;
+		}
+		arc(x, y, quadrantSize * 2, quadrantSize * 2, start, stop, PIE);
 
 	}
 
