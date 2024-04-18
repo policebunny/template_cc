@@ -6,7 +6,7 @@ Für jede Aufgabe gibt es einen neuen Branch
 
 ## Excersises:
 
-[Image Pixelation](https://github.com/policebunny/template_cc)
+[Image Pixelation](https://github.com/policebunny/template_cc/tree/cc_image-pixelation)
 
 [Hello World](https://github.com/policebunny/template_cc/tree/cc_helloworld)
 
