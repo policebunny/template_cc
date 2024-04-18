@@ -7,7 +7,7 @@ import controlP5.*;
 public class MySketch extends PApplet {
 	int circler = 16;
 	int seed = 0;
-	int circleSize = width / circler;
+
 	PImage img;
 	ControlP5 cp5;
 	public void setup() {
@@ -42,6 +42,7 @@ public class MySketch extends PApplet {
 		if(mousePressed) {
 			seed++;
 		}
+		int circleSize = width / circler;
 		noStroke();
 		background(255); // white background
 		randomSeed(seed);
