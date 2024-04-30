@@ -3,30 +3,42 @@ import processing.core.PImage;
 import processing.opengl.PShader;
 import controlP5.*;
 
+import java.security.Key;
+
 
 public class MySketch extends PApplet {
-	public PImage img = loadImage("https://i.redd.it/tbw9xtpzbcf61.jpg");
 	float circler = 10;
+	int seed = 0;
+	float maxTrans = 0.7f; // without f makes it double
+	float maxRot = 0.05f;
+	int filler = 50;
+	int labelcolor = 255;
 	ControlP5 cp5;
 	public void setup() {
 		this.getSurface().setResizable(true);
 		cp5 = new ControlP5(this);
-		cp5.addSlider("circler")
+		cp5.addSlider("maxTrans")
 				.setPosition(10, 10)
-				.setRange(1, 100)
+				.setRange(0.07f, 0.7f)
 				.setValue(5)
+				.setColorLabel(labelcolor)
 				.setSize(100, 20);
-		cp5.addSlider("decay")
+		cp5.addSlider("maxRot")
 				.setPosition(10, 40)
-				.setRange(0.001f, 0.005f)
+				.setRange(0.0001f, 0.05f)
 				.setValue(5)
 				.setSize(100, 20);
+		cp5.addSlider("filler")
+				.setPosition(10,80)
+				.setRange(0,255)
+				.setValue(5)
+				.setSize(100,20);
 
 
-		img.resize(width, height);   //public ez
 		ellipseMode(CORNER);
-		noStroke();   //kreis soll keinen rand haben
-		background(0);
+		rectMode(CORNER); //use the upper left corner as the origin of your rects
+		stroke(0);
+		strokeWeight(2);
 
 
 		// saveFrame("pixeltest.jpg");
@@ -34,7 +46,7 @@ public class MySketch extends PApplet {
 	}
 
 	public void settings() {
-		size(500, 500);
+		size(512, 970);
 	}
 
 	public void frameResized(int w, int h) {
@@ -42,23 +54,43 @@ public class MySketch extends PApplet {
 	}
 
 	public void draw(){
-		background(64);
-		ellipse(mouseX, mouseY, 20, 20);
-
-
-		float circleSize = circler;
-		for (int x = 0; x < width; x += circleSize) {
-			for (int y = -47; y < height; y += circleSize) {
-				fill(img.get(x, max(y,0)));
-				ellipse(x, y, circleSize, circleSize); //circle(x,y,circleSize) ist vom import
-				//benutze ellipse stattdessen, aber input 4 variablen ez circlesizecirclesize
-			}
-			circleSize *= 0.964;
-			circleSize = max(circleSize, 1);
+		if(mousePressed) {
+			saveFrame("output-####.png");
+			seed = (int)random(12345);
 		}
+
+		background(255); // white
+		fill(filler);
+
+		float border = 10; // should be 30
+		float rectSize = (width - 2 * border) / 12;
+		randomSeed(seed);
+
+		translate(border, border);
+		for (int row = 0; row < 24; row++) {
+			for (int column = 0; column < 12; column++) {
+				pushMatrix();
+				translate(column * rectSize, row * rectSize);
+				float weight = sin((0.003f * millis()));
+				float translationFactor = weight * maxTrans;
+				float rotationFactor = weight * maxRot;
+
+				translate(translationFactor * random(-1, 1) * row, translationFactor * random(-1, 1) * row);
+				rotate(rotationFactor * random(-1, 1) * row);
+				rect(0, 0, rectSize, rectSize);
+				popMatrix();
+			}
+		}
+
+		fill(255);
+		ellipse(mouseX -20, mouseY -20, 20, 20);
+
+
 	}
 
 	public void frameUpdate() {
-
+		if(labelcolor > 1) {
+			labelcolor--;
+		}
 	}
 }
