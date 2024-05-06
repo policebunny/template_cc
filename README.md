@@ -1,3 +1,3 @@
 # Translation and Rotation Excercise
 
-// Not done :)
+Rechtecke in einem Grid die sich "rotieren" und "verschieben"
